@@ -1,0 +1,59 @@
+{
+  "name": "playwright-magic-steps",
+  "description": "Auto-transform JavaScript comments into Playwright steps",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "tsc": "tsc",
+    "knip": "knip -c knip.config.ts",
+    "prettier": "prettier --check --ignore-unknown .",
+    "prettier:w": "prettier --write --ignore-unknown .",
+    "test": "npx playwright test",
+    "example": "npx playwright test -c example",
+    "toc": "markdown-toc -i README.md",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "release": "bash scripts/release.sh"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.5.0",
+    "@playwright/test": "1.44.1",
+    "@types/node": "^18.15.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-playwright": "1.6.2",
+    "globals": "15.5.0",
+    "knip": "5.19.0",
+    "lint-staged": "15.2.7",
+    "markdown-toc": "1.2.0",
+    "np": "10.0.5",
+    "prettier": "3.3.2",
+    "publint": "0.2.8",
+    "ts-node": "^10.9.2",
+    "typescript": "5.4.5",
+    "typescript-eslint": "7.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vitalets/playwright-magic-steps.git"
+  },
+  "keywords": [
+    "playwright",
+    "steps",
+    "testing",
+    "e2e"
+  ],
+  "funding": "https://github.com/sponsors/vitalets",
+  "license": "MIT"
+}
