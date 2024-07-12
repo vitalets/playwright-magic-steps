@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "vitest.config.mts"]
 }

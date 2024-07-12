@@ -23,9 +23,16 @@ export default [
       'max-depth': ['error', { max: 2 }],
       'max-nested-callbacks': ['error', { max: 2 }],
       'max-params': ['error', { max: 3 }],
-      'max-statements': ['error', { max: 12 }, { ignoreTopLevelFunctions: false }],
+      'max-statements': [
+        'error',
+        { max: 12 },
+        { ignoreTopLevelFunctions: false },
+      ],
       'max-len': ['error', { code: 120, ignoreUrls: true }],
-      'max-lines': ['error', { max: 200, skipComments: true, skipBlankLines: true }],
+      'max-lines': [
+        'error',
+        { max: 200, skipComments: true, skipBlankLines: true },
+      ],
       semi: ['error', 'always'],
       'no-multiple-empty-lines': ['error', { max: 1 }],
       'space-before-function-paren': [
@@ -33,9 +40,13 @@ export default [
         { anonymous: 'always', named: 'never', asyncArrow: 'always' },
       ],
       '@typescript-eslint/triple-slash-reference': 0,
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       'no-undef': 0,
       'no-empty-pattern': 0,
+      '@typescript-eslint/no-var-requires': 0,
     },
   },
   {
