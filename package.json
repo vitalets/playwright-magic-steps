@@ -16,6 +16,7 @@
     "README.md"
   ],
   "scripts": {
+    "prepare": "git config core.hooksPath .hooks",
     "lint": "eslint .",
     "tsc": "tsc",
     "knip": "knip -c knip.config.ts",
@@ -28,20 +29,20 @@
     "release": "bash scripts/release.sh"
   },
   "devDependencies": {
-    "@eslint/js": "9.5.0",
+    "@eslint/js": "9.6.0",
     "@playwright/test": "1.44.1",
     "@types/node": "^18.15.0",
     "eslint": "8.57.0",
     "eslint-plugin-playwright": "1.6.2",
-    "globals": "15.5.0",
-    "knip": "5.19.0",
+    "globals": "15.8.0",
+    "knip": "5.25.2",
     "lint-staged": "15.2.7",
     "markdown-toc": "1.2.0",
-    "np": "10.0.5",
+    "np": "10.0.6",
     "prettier": "3.3.2",
     "publint": "0.2.8",
     "ts-node": "^10.9.2",
-    "typescript": "5.4.5",
+    "typescript": "5.5.3",
     "typescript-eslint": "7.13.0"
   },
   "repository": {
