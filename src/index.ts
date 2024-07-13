@@ -79,7 +79,10 @@ export function transformMagicSteps(code: string) {
     const title = step.title.replace(/`/g, '\\`');
     lines[step.start] =
       `${' '.repeat(step.indent)}await test.step(\`${title}\`, async () => {`;
-    lines[step.end] = `${lines[step.end]} });`;
+    const isCommented = lines[step.end].trim().startsWith('//');
+    lines[step.end] = isCommented
+      ? `${' '.repeat(step.indent)}}); ${lines[step.end].trim()}`
+      : `${lines[step.end]} });`;
     if (step.explicitEnd) lines[step.end + 1] = ''; // clear stepend
   });
 

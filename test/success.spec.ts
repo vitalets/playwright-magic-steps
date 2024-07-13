@@ -63,3 +63,16 @@ test('nested steps', () => {
   ]);
 });
 
+test('close step at line start in case of comment', () => {
+  expectSteps([
+    '  // step: step 1',
+    '  await page.reload();',
+    '  // await page.goto();',
+    '',
+  ], [
+    '  await test.step(`step 1`, async () => {',
+    '  await page.reload();',
+    '  }); // await page.goto();',
+    '',
+  ]);
+});
