@@ -21,22 +21,42 @@ type Step = {
   explicitEnd?: boolean;
 };
 
+// eslint-disable-next-line max-statements, complexity, max-statements
 export function transformMagicSteps(code: string) {
   const steps: Step[] = [];
   const stack: Step[] = [];
   const lines = code.split('\n');
-  // eslint-disable-next-line max-statements, complexity
-  lines.forEach((line, index) => {
-    const indent = getIndent(line);
-    const lastOpenStep = stack[stack.length - 1];
+
+  // eslint-disable-next-line max-statements, complexity, max-statements
+  lines.forEach((rawLine, index) => {
+    const indent = getIndent(rawLine);
+    const line = rawLine.trim();
+    let lastOpenStep: Step | undefined = stack[stack.length - 1];
+
+    // step end by indent (close all steps where step.indent > indent)
+    while (lastOpenStep?.indent > indent) {
+      lastOpenStep.end = index - 1;
+      steps.push(lastOpenStep);
+      stack.pop();
+      lastOpenStep = stack[stack.length - 1];
+    }
+
+    // step end by explicit comment
+    if (isExplicitStepEnd(line)) {
+      if (!lastOpenStep) throw new Error(`Step end without step start`);
+      if (indent !== lastOpenStep.indent)
+        throw new Error(`Invalid indent for stepend`);
+      lastOpenStep.end = index - 1;
+      lastOpenStep.explicitEnd = true;
+      steps.push(stack.pop()!);
+      return;
+    }
 
     // is step start
     const stepTitle = line.split('// step:')[1]?.trim();
-
     if (stepTitle) {
       // close prev step
       if (lastOpenStep && lastOpenStep.indent === indent) {
-        // todo: check indent
         lastOpenStep.end = index - 1;
         steps.push(stack.pop()!);
       }
@@ -49,38 +69,25 @@ export function transformMagicSteps(code: string) {
       };
 
       stack.push(step);
-      return;
-    }
-
-    // is step end
-    if (lastOpenStep) {
-      // todo: check invalid indent
-      // todo: handle step end without step start
-      if (line.includes('// stepend') || line.includes('// endstep')) {
-        lastOpenStep.end = index - 1;
-        lastOpenStep.explicitEnd = true;
-        steps.push(stack.pop()!);
-        return;
-      }
-
-      if (indent < lastOpenStep.indent) {
-        lastOpenStep.end = index - 1;
-        steps.push(stack.pop()!);
-        return;
-      }
     }
   });
 
   if (stack.length) {
-    throw new Error(`Unclosed steps!`);
+    // close all open steps
+    let lastOpenStep: Step | undefined = stack[stack.length - 1];
+    while (lastOpenStep?.indent > 0) {
+      lastOpenStep.end = lines.length - 1;
+      steps.push(lastOpenStep);
+      stack.pop();
+      lastOpenStep = stack[stack.length - 1];
+    }
   }
 
   steps.forEach((step) => {
     const title = step.title.replace(/`/g, '\\`');
     lines[step.start] =
       `${' '.repeat(step.indent)}await test.step(\`${title}\`, async () => {`;
-    const isCommented = lines[step.end].trim().startsWith('//');
-    lines[step.end] = isCommented
+    lines[step.end] = isComment(lines[step.end])
       ? `${' '.repeat(step.indent)}}); ${lines[step.end].trim()}`
       : `${lines[step.end]} });`;
     if (step.explicitEnd) lines[step.end + 1] = ''; // clear stepend
@@ -97,4 +104,12 @@ function getIndent(str: string) {
 function resolvePackageRoot(packageName: string) {
   const packageJsonPath = require.resolve(`${packageName}/package.json`);
   return path.dirname(packageJsonPath);
+}
+
+function isComment(line: string) {
+  return line.trim().startsWith('//');
+}
+
+function isExplicitStepEnd(line: string) {
+  return /^\/\/\s+(stepend|endstep)/.test(line);
 }

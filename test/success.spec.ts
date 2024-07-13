@@ -47,7 +47,7 @@ test('nested steps', () => {
   expectSteps([
     '  // step: step 1',
     '  await page.reload();',
-    '  function foo() {',
+    '  if (noAuth) {',
     '    // step: step 2',
     '    await page.reload();',
     '  }',
@@ -55,7 +55,7 @@ test('nested steps', () => {
   ], [
     '  await test.step(`step 1`, async () => {',
     '  await page.reload();',
-    '  function foo() {',
+    '  if (noAuth) {',
     '    await test.step(`step 2`, async () => {',
     '    await page.reload(); });',
     '  } });',
@@ -74,5 +74,39 @@ test('close step at line start in case of comment', () => {
     '  await page.reload();',
     '  }); // await page.goto();',
     '',
+  ]);
+});
+
+test('close several steps by indent', () => {
+  expectSteps([
+    '  // step: step 1',
+    '  await page.reload();',
+    '  if (noAuth) ',
+    '    // step: step 2',
+    '    await page.close();',
+    '',
+  ], [
+    '  await test.step(`step 1`, async () => {',
+    '  await page.reload();',
+    '  if (noAuth) ',
+    '    await test.step(`step 2`, async () => {',
+    '    await page.close(); }); });',
+    '',
+  ]);
+});
+
+test('close several steps by file end', () => {
+  expectSteps([
+    '  // step: step 1',
+    '  await page.reload();',
+    '  if (noAuth) ',
+    '    // step: step 2',
+    '    await page.close();',
+  ], [
+    '  await test.step(`step 1`, async () => {',
+    '  await page.reload();',
+    '  if (noAuth) ',
+    '    await test.step(`step 2`, async () => {',
+    '    await page.close(); }); });',
   ]);
 });
