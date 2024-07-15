@@ -1,11 +1,12 @@
 import { StepsBuilder } from './builder';
-import { hookBabelTransform } from './hook';
+import { hookPirates } from './hook';
 import { StepsRenderer } from './renderer';
 
 installMagicSteps();
 
 function installMagicSteps() {
-  hookBabelTransform(transformMagicSteps);
+  // hookBabelTransform(transformMagicSteps);
+  hookPirates(transformMagicSteps);
 }
 
 export function transformMagicSteps(code: string, filename = '') {
