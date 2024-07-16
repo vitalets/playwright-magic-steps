@@ -4,11 +4,11 @@ Auto-transform JavaScript comments into Playwright steps.
 ## Example
 ```ts
 test('Check home page', async ({ page }) => {
-  // step: open home page
+  // step: Open home page
   await page.goto('https://playwright.dev');
-  // step: click "Get started" link
+  // step: Click "Get started" link
   await page.getByRole('link', { name: 'Get started' }).click();
-  // step: check page title
+  // step: Check page title
   await expect(page).toHaveTitle('Installation | Playwright');
 });
 ```
