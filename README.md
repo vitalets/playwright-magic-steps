@@ -13,7 +13,8 @@ test('Check home page', async ({ page }) => {
 });
 ```
 Report:
-tbd
+![image](https://github.com/user-attachments/assets/70c38ae0-e451-468f-8678-71cc57a50ec1)
+
 
 ## Installation
 
