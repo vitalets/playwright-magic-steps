@@ -1,4 +1,4 @@
-import magicSteps from '../../dist/index.js';
+import { magicSteps } from '../../dist/index.js';
 import { defineConfig } from '@playwright/test';
 
 magicSteps({ enabled: true });

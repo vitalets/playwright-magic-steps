@@ -2,7 +2,7 @@ import { config, MagicStepsConfig } from './config';
 import { hookPirates } from './hook';
 import { transformMagicSteps } from './steps';
 
-export default function magicSteps(userConfig?: Partial<MagicStepsConfig>) {
+export function magicSteps(userConfig?: Partial<MagicStepsConfig>) {
   Object.assign(config, userConfig);
   if (config.enabled) {
     // hook pirates for cjs projects

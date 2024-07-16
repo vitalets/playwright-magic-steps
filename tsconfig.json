@@ -7,7 +7,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true
   },
   "include": ["**/*.ts", "vitest.config.mts"]

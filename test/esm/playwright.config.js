@@ -1,7 +1,7 @@
-import magicSteps from '../../dist/index.js';
+import { magicSteps } from '../../dist/index.js';
 import { defineConfig } from '@playwright/test';
 
-magicSteps.default({ enabled: true });
+magicSteps({ enabled: true });
 
 export default defineConfig({
   testDir: '.',
