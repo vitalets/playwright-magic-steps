@@ -8,7 +8,7 @@ if [[ -n "${SKIP_GIT_HOOKS-}" ]]; then exit 0; fi
 npm run lint
 npm run prettier
 # npm run knip
-npm test
+npm run test:all
 
 
 

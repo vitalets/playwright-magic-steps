@@ -5,7 +5,8 @@
   "type": "commonjs",
   "main": "./dist/index.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./esm": "./dist/esm/index.js"
   },
   "engines": {
     "node": ">=18"
@@ -23,6 +24,9 @@
     "prettier": "prettier --check --ignore-unknown .",
     "prettier:w": "prettier --write --ignore-unknown .",
     "test": "vitest run",
+    "test:cjs": "npm run build && node test/cjs/run.js",
+    "test:esm": "npm run build && node test/esm/run.js",
+    "test:all": "npm test && npm run test:cjs",
     "example": "npx playwright test -c example",
     "toc": "markdown-toc -i README.md",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
@@ -30,7 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.6.0",
-    "@playwright/test": "1.44.1",
+    "@playwright/test": "1.45.1",
     "@types/node": "^18.15.0",
     "eslint": "8.57.0",
     "eslint-plugin-playwright": "1.6.2",

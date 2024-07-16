@@ -3,10 +3,6 @@
  */
 import { ParsedLine, parseLine } from './parser';
 
-// export type Step = {
-//   startLine: ParsedLine;
-//   endLine?: ParsedLine;
-// };
 export type Step = {
   title: string;
   indent: number;

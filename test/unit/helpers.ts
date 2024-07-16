@@ -1,5 +1,5 @@
 import { expect } from 'vitest';
-import { transformMagicSteps } from '../src';
+import { transformMagicSteps } from '../../src/steps';
 
 export function expectSteps(actual: string[], expected: string[]) {
   expect(transformMagicSteps(actual.join('\n'))).toEqual(expected.join('\n'));

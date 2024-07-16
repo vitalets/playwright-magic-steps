@@ -1,9 +1,7 @@
 /**
  * Parse a line of code.
  */
-
-const stepOpener = /^\/\/\s+step:/;
-const stepCloser = /^\/\/\s+(stepend|endstep)/;
+import { config } from '../config';
 
 export type ParsedLine = {
   index: number;
@@ -22,7 +20,7 @@ export function parseLine(rawLine: string, index: number): ParsedLine {
     indent: getIndent(rawLine),
     stepTitle,
     isStepStartComment: Boolean(stepTitle),
-    isStepEndComment: stepCloser.test(line),
+    isStepEndComment: config.stepCloser.test(line),
   };
 }
 
@@ -32,7 +30,7 @@ export function getIndent(line: string) {
 }
 
 function getStepTitle(line: string) {
-  const matches = line.split(stepOpener);
+  const matches = line.split(config.stepOpener);
   return matches?.[1]?.trim() || '';
 }
 

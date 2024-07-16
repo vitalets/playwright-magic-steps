@@ -4,16 +4,6 @@ const pwRoot = resolvePackageRoot('playwright');
 
 type HookFn = (code: string, filename: string) => string;
 
-// not used b/c we hook pirates to get code before cache
-// export function hookBabelTransform(hookFn: HookFn) {
-//   const babelBundle = require(`${pwRoot}/lib/transform/babelBundle.js`);
-//   const orig = babelBundle.babelTransform;
-//   babelBundle.babelTransform = (code: string, filename: string, ...args: unknown[]) => {
-//     code = hookFn(code, filename);
-//     return orig.call(babelBundle, code, filename, ...args);
-//   };
-// }
-
 export function hookPirates(hookFn: HookFn) {
   const utilsBundle = require(`${pwRoot}/lib/utilsBundle.js`);
   const orig = utilsBundle.pirates;
@@ -27,6 +17,19 @@ export function hookPirates(hookFn: HookFn) {
       };
       return orig.addHook(wrappedFn, ...args);
     },
+  };
+}
+
+export function hookTransform(hookFn: HookFn) {
+  const transformModule = require(`${pwRoot}/lib/transform/transform.js`);
+  const orig = transformModule.transformHook;
+  transformModule.transformHook = (
+    code: string,
+    filename: string,
+    ...args: unknown[]
+  ) => {
+    code = hookFn(code, filename);
+    return orig(code, filename, ...args);
   };
 }
 

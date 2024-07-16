@@ -15,7 +15,7 @@ export default [
     },
   },
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{ts,js}'],
     rules: {
       'no-console': 'error',
 
