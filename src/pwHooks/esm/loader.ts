@@ -9,8 +9,11 @@ export async function resolve(
   nextResolve: any,
 ) {
   const res = await nextResolve(specifier, context);
-  // todo: check full path
-  if (res.url.endsWith('transform/esmLoader.js')) {
+  // overwrite Playwright's esmLoader
+  if (
+    res.url.includes('/node_modules/playwright/') &&
+    res.url.endsWith('esmLoader.js')
+  ) {
     res.url = url.pathToFileURL(
       path.resolve(__dirname, './esmLoaderHooked.js'),
     ).href;

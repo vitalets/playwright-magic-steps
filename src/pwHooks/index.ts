@@ -1,11 +1,17 @@
+/**
+ * Hook Playwright internal modules.
+ */
 import path from 'node:path';
 
 const pwRoot = resolvePackageRoot('playwright');
+const requireUtilsBundle = () => require(`${pwRoot}/lib/utilsBundle.js`);
+const requireTransformModule = () =>
+  require(`${pwRoot}/lib/transform/transform.js`);
 
 type HookFn = (code: string, filename: string) => string;
 
 export function hookPirates(hookFn: HookFn) {
-  const utilsBundle = require(`${pwRoot}/lib/utilsBundle.js`);
+  const utilsBundle = requireUtilsBundle();
   const orig = utilsBundle.pirates;
   utilsBundle.pirates = {
     addHook: (fn: HookFn, ...args: unknown[]) => {
@@ -21,7 +27,7 @@ export function hookPirates(hookFn: HookFn) {
 }
 
 export function hookTransform(hookFn: HookFn) {
-  const transformModule = require(`${pwRoot}/lib/transform/transform.js`);
+  const transformModule = requireTransformModule();
   const orig = transformModule.transformHook;
   transformModule.transformHook = (
     code: string,
@@ -34,8 +40,7 @@ export function hookTransform(hookFn: HookFn) {
 }
 
 function shouldTransform(filename: string) {
-  const transformModule = require(`${pwRoot}/lib/transform/transform.js`);
-  return transformModule.shouldTransform?.(filename);
+  return requireTransformModule().shouldTransform?.(filename);
 }
 
 function resolvePackageRoot(packageName: string) {

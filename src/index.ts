@@ -1,5 +1,5 @@
 import { config, MagicStepsConfig } from './config';
-import { hookPirates } from './hook';
+import { hookPirates } from './pwHooks';
 import { transformMagicSteps } from './steps';
 
 export function magicSteps(userConfig?: Partial<MagicStepsConfig>) {

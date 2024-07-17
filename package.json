@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./esm": "./dist/esm/index.js"
+    "./esm": "./dist/pwHooks/esm/registerLoader.js"
   },
   "engines": {
     "node": ">=18"
