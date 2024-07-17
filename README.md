@@ -8,6 +8,7 @@
 Auto-transform JavaScript comments into Playwright steps.
 
 ## Example
+Test code:
 ```ts
 test('Check home page', async ({ page }) => {
   // step: Open home page
@@ -23,6 +24,21 @@ Report:
 
 ![image](https://github.com/user-attachments/assets/70c38ae0-e451-468f-8678-71cc57a50ec1)
 
+Test code actually executed:
+```ts
+test('Check home page', async ({ page }) => {
+  await test.step('Open home page', async () => {
+    await page.goto('https://playwright.dev');
+  });
+  await test.step('Click "Get started" link', async () => {
+    await page.getByRole('link', { name: 'Get started' }).click();
+  });
+  await test.step('Check page title', async () => {
+    await expect(page).toHaveTitle('Installation | Playwright');
+  });
+});
+```
+
 ## Installation
 Install from npm:
 ```
@@ -32,11 +48,8 @@ npm install -D playwright-magic-steps
 ## Configuration
 
 ### CommonJS projects
-* Option 1 - run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
-  ```
-  npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
-  ```
-* Option 2 - add the following code to the Playwright config:
+
+* **Option 1** - add the following code to the Playwright config:
   ```ts
   import 'playwright-magic-steps'; // <- enables magic steps
   import { defineConfig } from '@playwright/test';
@@ -44,6 +57,11 @@ npm install -D playwright-magic-steps
   export default defineConfig({
     ...
   });
+  ```
+
+* **Option 2** - run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
+  ```
+  npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
   ```
 
 ### ESM projects
