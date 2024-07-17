@@ -8,3 +8,13 @@ export function expectSteps(actual: string[], expected: string[]) {
 export function expectError(actual: string[], error: string) {
   expect(() => transformMagicSteps(actual.join('\n'))).toThrow(error);
 }
+
+export function expectErrorStack(actual: string[], error: string) {
+  try {
+    transformMagicSteps(actual.join('\n'), 'test.js');
+  } catch (e) {
+    expect(e.stack).toContain(error);
+    return;
+  }
+  expect.fail('Expect error!');
+}

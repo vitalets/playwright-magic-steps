@@ -64,10 +64,11 @@ export class StepsBuilder {
     const stepsToClose = this.openSteps.filter(
       (step) => step.indent === line.indent,
     );
-    if (stepsToClose.length === 0)
-      throw new Error(`Step end without step start`);
+    if (stepsToClose.length === 0) {
+      this.throwError(line, `Step end without step start`);
+    }
     if (stepsToClose.length > 1) {
-      throw new Error(`Several open steps with same indent.`);
+      this.throwError(line, `Several open steps with same indent.`);
     }
     stepsToClose[0].end = line.index;
     stepsToClose[0].endByComment = true;
@@ -78,7 +79,7 @@ export class StepsBuilder {
       (step) => step.indent === line.indent,
     );
     if (stepsToClose.length > 1) {
-      throw new Error(`Several open steps with same indent.`);
+      this.throwError(line, `Several open steps with same indent.`);
     }
     if (stepsToClose.length === 1) {
       stepsToClose[0].end = line.index - 1;
@@ -92,5 +93,16 @@ export class StepsBuilder {
       start: index,
       end: 0,
     });
+  }
+
+  private throwError(line: ParsedLine, msg: string): never {
+    const error = new Error(msg);
+    // change error.stack for pw to render pretty snippet
+    error.stack = [
+      `Error: ${msg}`,
+      `    at <unknown> (${this.filename}:${line.index + 1}:0)`,
+      ``,
+    ].join('\n');
+    throw error;
   }
 }
