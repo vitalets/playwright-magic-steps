@@ -53,7 +53,7 @@ NODE_OPTIONS='--import playwright-magic-steps/esm' npx playwright test
 ## Usage
 You can define steps with special comments.
 
-1. Step start is defined by `// step: {title}`
+1. Step start is defined by the comment: `// step: {title}`
 2. Step end is defined by one of the following rules:
    * indent is lower than step start
       ```ts
@@ -62,7 +62,8 @@ You can define steps with special comments.
         await page.goto('https://playwright.dev');
       }); /* <- close step by indent */
       ```
-  * explicit comment `// stepend` **on the same indent**:
+
+   * explicit comment `// stepend` **on the same indent**:
       ```ts
       test('my test', async () => {
         // step: Open home page
@@ -70,8 +71,9 @@ You can define steps with special comments.
         // stepend /* <- close step by stepend */
       });
       ```
-  * start of another step **on the same indent**:
-        ```ts
+
+   * start of another step **on the same indent**:
+      ```ts
       test('my test', async () => {
         // step: Open home page
         await page.goto('https://playwright.dev');
