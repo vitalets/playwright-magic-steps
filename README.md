@@ -29,11 +29,53 @@ Install from npm:
 npm install -D playwright-magic-steps
 ```
 
+## Configuration
+Add the following code to the Playwright config:
+```ts
+import { defineConfig } from '@playwright/test';
+import { magicSteps } from 'playwright-magic-steps';
+
+magicSteps();
+
+export default defineConfig({
+  ...
+});
+```
+
 ## Usage
-tbd
+You can define steps with special comments.
+
+1. Step start is defined by `// step: {title}`
+2. Step end is defined by one of the following rules:
+   * indent is lower than step start
+      ```ts
+      test('my test', async () => {
+        // step: Open home page
+        await page.goto('https://playwright.dev');
+      }); /* <- close step by indent */
+      ```
+  * explicit comment `// stepend` **on the same indent**:
+      ```ts
+      test('my test', async () => {
+        // step: Open home page
+        await page.goto('https://playwright.dev');
+        // stepend /* <- close step by stepend */
+      });
+      ```
+  * start of another step **on the same indent**:
+        ```ts
+      test('my test', async () => {
+        // step: Open home page
+        await page.goto('https://playwright.dev');
+        // step: Click button /* <- close step by another step */
+      });
+      ```
+
+> [!IMPORTANT]
+> Code indentation is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
 
 ## Motivation
-According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple, to read them like a poem. Calls of `test.step()` add extra visual complexity and nesting. Moving step titles to comments makes test code clear and readable.
+According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple. Wrapping code into `test.step()` adds extra visual complexity and nesting. Moving step titles to comments makes test code clean and more readable.
 
 ## Caveats
 

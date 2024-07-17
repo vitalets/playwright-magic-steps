@@ -4,6 +4,6 @@ import { defineConfig } from '@playwright/test';
 magicSteps({ enabled: true });
 
 export default defineConfig({
-  testDir: 'test',
+  testDir: '.',
   reporter: 'html',
 });
