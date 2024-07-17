@@ -30,6 +30,8 @@ npm install -D playwright-magic-steps
 ```
 
 ## Configuration
+
+### CommonJS projects
 Add the following code to the Playwright config:
 ```ts
 import { defineConfig } from '@playwright/test';
@@ -40,6 +42,12 @@ magicSteps();
 export default defineConfig({
   ...
 });
+```
+
+### ESM projects
+Run Playwright with the following `NODE_OPTIONS`:
+```
+NODE_OPTIONS='--import playwright-magic-steps/esm' npx playwright test
 ```
 
 ## Usage
@@ -78,9 +86,7 @@ You can define steps with special comments.
 According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple. Wrapping code into `test.step()` adds extra visual complexity and nesting. Moving step titles to comments makes test code clean and more readable.
 
 ## Caveats
-
-## Feedback
-Feel free to share your feedback and suggestions in [issues](https://github.com/vitalets/playwright-magic-steps/issues).
+This library performs string replacements in your code and can potentially break it. In that case you can disable magic steps, your code will continue to work as all instructions are JavaScript comments. Feel free to report any problems in [issues](https://github.com/vitalets/playwright-magic-steps/issues).
 
 ## License
 [MIT](https://github.com/vitalets/playwright-magic-steps/blob/main/LICENSE)
