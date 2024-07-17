@@ -1,7 +1,5 @@
-import { magicSteps } from 'playwright-magic-steps';
 import { defineConfig } from '@playwright/test';
-
-magicSteps({ enabled: true });
+import 'playwright-magic-steps';
 
 export default defineConfig({
   testDir: '.',

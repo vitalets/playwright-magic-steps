@@ -32,17 +32,19 @@ npm install -D playwright-magic-steps
 ## Configuration
 
 ### CommonJS projects
-Add the following code to the Playwright config:
-```ts
-import { defineConfig } from '@playwright/test';
-import { magicSteps } from 'playwright-magic-steps';
+* Option 1 - run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
+  ```
+  npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
+  ```
+* Option 2 - add the following code to the Playwright config:
+  ```ts
+  import '@playwright/test';
+  import 'playwright-magic-steps'; // <- enables magic steps
 
-magicSteps();
-
-export default defineConfig({
-  ...
-});
-```
+  export default defineConfig({
+    ...
+  });
+  ```
 
 ### ESM projects
 Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
