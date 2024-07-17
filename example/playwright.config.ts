@@ -1,6 +1,4 @@
-// replace with:
-// import { magicSteps } from 'playwright-magic-steps';
-import { magicSteps } from '../src';
+import { magicSteps } from 'playwright-magic-steps';
 import { defineConfig } from '@playwright/test';
 
 magicSteps({ enabled: true });

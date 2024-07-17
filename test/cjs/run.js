@@ -14,6 +14,7 @@ async function test() {
   assert.match(stdout, /Open home page/);
   assert.match(stdout, /Click 'Get started' link/);
   assert.match(stdout, /Check page title/);
+  console.log('cjs: ok');
 }
 
 async function runTests() {

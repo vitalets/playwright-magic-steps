@@ -1,6 +1,6 @@
 /**
  * Run test for esm.
- * NODE_OPTIONS="--import ../../dist/esm/index.js" npx playwright test
+ * NODE_OPTIONS="--import playwright-magic-steps/esm" npx playwright test
  */
 /* eslint-disable no-console */
 import { exec } from 'node:child_process';
@@ -8,7 +8,6 @@ import assert from 'node:assert/strict';
 import { promisify } from 'util';
 const execPromise = promisify(exec);
 
-// todo: hangs. investigate!
 test();
 
 async function test() {
@@ -16,6 +15,7 @@ async function test() {
   assert.match(stdout, /Open home page/);
   assert.match(stdout, /Click 'Get started' link/);
   assert.match(stdout, /Check page title/);
+  console.log('esm: ok');
 }
 
 async function runTests() {
@@ -25,7 +25,7 @@ async function runTests() {
       stdio: 'pipe',
       env: {
         ...process.env,
-        NODE_OPTIONS: '--import ../../dist/esm/index.js',
+        NODE_OPTIONS: '--import playwright-magic-steps/esm',
       },
     });
   } catch (e) {

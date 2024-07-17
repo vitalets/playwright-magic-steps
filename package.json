@@ -24,12 +24,11 @@
     "prettier": "prettier --check --ignore-unknown .",
     "prettier:w": "prettier --write --ignore-unknown .",
     "test": "vitest run",
-    "test:cjs": "npm run build && node test/cjs/run.js",
-    "test:esm": "npm run build && node test/esm/run.js",
-    "test:all": "npm test && npm run test:cjs",
-    "example": "npx playwright test -c example",
+    "e2e": "npm run build && node test/cjs/run.js && node test/esm/run.js",
+    "test:all": "npm test && npm run e2e",
+    "example": "npm run build && npx playwright test -c example",
     "toc": "markdown-toc -i README.md",
-    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "build": "./scripts/build.sh",
     "release": "bash scripts/release.sh"
   },
   "devDependencies": {

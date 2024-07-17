@@ -1,10 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
-test('Check home page', async ({ page }) => {
+const step = async () => {};
+
+test('Check home page', async ({}) => {
   // step: Open home page
-  await page.goto('https://playwright.dev');
+  await step();
   // step: Click 'Get started' link
-  await page.getByRole('link', { name: 'Get started' }).click();
+  await step();
   // step: Check page title
-  await expect(page).toHaveTitle('Installation | Playwright');
+  await step();
 });
