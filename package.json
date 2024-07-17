@@ -29,8 +29,8 @@
     "example": "npm run build && npx playwright test -c example",
     "toc": "markdown-toc -i README.md",
     "pw": "npm i --no-save @playwright/test@$PW",
-    "build": "scripts/build.sh",
-    "release": "scripts/release.sh"
+    "build": "bash scripts/build.sh",
+    "release": "bash scripts/release.sh"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.41"

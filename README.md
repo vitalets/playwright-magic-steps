@@ -82,7 +82,7 @@ You can define steps with special comments.
       ```
 
 > [!IMPORTANT]
-> Code indentation is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
+> Code **indentation** is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
 
 ## Motivation
 According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple. Wrapping code into `test.step()` adds extra visual complexity and nesting. Marking steps with comments makes test code clean and more readable.
