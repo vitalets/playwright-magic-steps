@@ -32,9 +32,12 @@ test('close step by comment', () => {
 });
 
 test('close step by indent (append)', () => {
-  expectSteps(
-    ['function foo() {', '  // step: step 1', '  await page.reload();', '}'],
-    [
+  expectSteps([
+      'function foo() {', 
+      '  // step: step 1', 
+      '  await page.reload();', 
+      '}'
+    ], [
       'function foo() {',
       '  await test.step(`step 1`, async () => {',
       '  await page.reload(); });',

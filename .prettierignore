@@ -1,4 +1,4 @@
 dist
 playwright-report
 **/*.md
-test/*.spec.ts
+test/unit/*.spec.ts
