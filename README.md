@@ -1,4 +1,10 @@
 # playwright-magic-steps
+
+[![lint](https://github.com/vitalets/playwright-magic-steps/actions/workflows/lint.yaml/badge.svg)](https://github.com/vitalets/playwright-magic-steps/actions/workflows/lint.yaml)
+[![test](https://github.com/vitalets/playwright-magic-steps/actions/workflows/test.yaml/badge.svg)](https://github.com/vitalets/playwright-magic-steps/actions/workflows/test.yaml)
+[![npm version](https://img.shields.io/npm/v/playwright-magic-steps)](https://www.npmjs.com/package/playwright-magic-steps)
+[![license](https://img.shields.io/npm/l/playwright-magic-steps)](https://github.com/vitalets/playwright-magic-steps/blob/main/LICENSE)
+
 Auto-transform JavaScript comments into Playwright steps.
 
 ## Example
