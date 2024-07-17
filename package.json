@@ -1,7 +1,7 @@
 {
   "name": "playwright-magic-steps",
   "description": "Auto-transform JavaScript comments into Playwright steps",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "type": "commonjs",
   "main": "./dist/index.js",
   "exports": {
