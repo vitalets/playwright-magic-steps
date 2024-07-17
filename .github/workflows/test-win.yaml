@@ -30,4 +30,4 @@ jobs:
           @playwright/test@${{ matrix.playwrightVersion }}
 
       - run: npx playwright install --with-deps chromium
-      - run: npm test
+      - run: npm run e2e

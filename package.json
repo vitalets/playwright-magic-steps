@@ -31,8 +31,8 @@
     "test:all": "npm test && npm run e2e",
     "example": "npm run build && npx playwright test -c example",
     "toc": "markdown-toc -i README.md",
-    "build": "./scripts/build.sh",
-    "release": "bash scripts/release.sh"
+    "build": "scripts/build.sh",
+    "release": "scripts/release.sh"
   },
   "devDependencies": {
     "@eslint/js": "9.7.0",
