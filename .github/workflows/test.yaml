@@ -1,0 +1,48 @@
+name: test
+
+on:
+  push:
+  pull_request:
+    branches: [main, beta]
+  schedule:
+    # run daily at 00:00
+    - cron: 0 0 * * *
+
+jobs:
+  get-playwright-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        id: get-versions
+        with:
+          script: |
+            const minimalVersion = '1.35';
+            const { execSync } = require('node:child_process');
+            const info = execSync('npm show --json @playwright/test').toString();
+            const { versions } = JSON.parse(info);
+            return versions
+              .filter((v) => v.match(/\.0$/) && v >= minimalVersion)
+              .map((v) => v.replace(/\.0$/, ''))
+              .concat([ 'beta' ]);
+    outputs:
+      versions: ${{ steps.get-versions.outputs.result }}
+
+  test:
+    needs: get-playwright-versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        playwrightVersion: ${{ fromJson(needs.get-playwright-versions.outputs.versions) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: >
+          npm install
+          @playwright/test@${{ matrix.playwrightVersion }}
+
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e

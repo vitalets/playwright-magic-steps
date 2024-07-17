@@ -1,0 +1,33 @@
+name: test-win
+
+on:
+  push:
+  pull_request:
+    branches: [main, beta]
+  schedule:
+    # run daily at 00:00
+    - cron: 0 0 * * *
+
+jobs:
+  test-win:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        # take min and max supported PW versions
+        playwrightVersion: ['1.35', '1.44']
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: >
+          npm install
+          @playwright/test@${{ matrix.playwrightVersion }}
+
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
