@@ -5,10 +5,10 @@ import { promisify } from 'util';
 
 const execPromise = promisify(exec);
 
-export async function runTests(dir: string) {
+export async function runTests(dir: string, cmd?: string) {
   const cwd = path.join(__dirname, dir);
   try {
-    return await execPromise('npm test', { cwd });
+    return await execPromise(cmd || 'npm test', { cwd });
   } catch (e) {
     const stdout = e.stdout?.toString().trim() || '';
     const stderr = e.stderr?.toString().trim() || '';

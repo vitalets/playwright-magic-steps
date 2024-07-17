@@ -1,16 +1,23 @@
 import { test, expect } from 'vitest';
 import { runTests } from './helpers';
 
-test('cjs', async () => {
+test('cjs (-r option)', async () => {
   const { stdout } = await runTests('cjs');
-  expect(stdout).toContain('Open home page');
-  expect(stdout).toContain("Click 'Get started' link");
-  expect(stdout).toContain('Check page title');
+  expectSteps(stdout);
 });
 
-test('esm', async () => {
+test('cjs (import in config)', async () => {
+  const { stdout } = await runTests('cjs', 'npm run test:import');
+  expectSteps(stdout);
+});
+
+test('esm (--import option)', async () => {
   const { stdout } = await runTests('esm');
+  expectSteps(stdout);
+});
+
+function expectSteps(stdout: string) {
   expect(stdout).toContain('Open home page');
   expect(stdout).toContain("Click 'Get started' link");
   expect(stdout).toContain('Check page title');
-});
+}
