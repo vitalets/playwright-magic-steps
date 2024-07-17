@@ -38,8 +38,8 @@ npm install -D playwright-magic-steps
   ```
 * Option 2 - add the following code to the Playwright config:
   ```ts
-  import '@playwright/test';
   import 'playwright-magic-steps'; // <- enables magic steps
+  import { defineConfig } from '@playwright/test';
 
   export default defineConfig({
     ...
