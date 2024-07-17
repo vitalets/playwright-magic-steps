@@ -55,33 +55,45 @@ npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
 ## Usage
 You can define steps with special comments.
 
-1. Step start is defined by the comment: `// step: {title}`
-2. Step end is defined by one of the following rules:
-   * indent is lower than step start
+1. **Step start** is defined by the comment: `// step: {title}`
+2. **Step end** is defined by one of the following rules:
+   * start of another step on the same indent:
       ```ts
       test('my test', async () => {
         // step: Open home page
-        await page.goto('https://playwright.dev');
-      }); /* <- close step by indent */
-      ```
-
-   * explicit comment `// stepend` **on the same indent**:
-      ```ts
-      test('my test', async () => {
-        // step: Open home page
-        await page.goto('https://playwright.dev');
-        // stepend /* <- close step by stepend */
+        await page.goto('/');
+        // step: Click button
       });
       ```
 
-   * start of another step **on the same indent**:
+   * explicit comment `// stepend` on the same indent:
       ```ts
       test('my test', async () => {
         // step: Open home page
-        await page.goto('https://playwright.dev');
-        // step: Click button /* <- close step by another step */
+        await page.goto('/');
+        // stepend
       });
       ```
+
+   * indent is lower than indent of step start:
+      ```ts
+      test('my test', async () => {
+        // step: Open home page
+        await page.goto('/');
+      });
+      ```
+
+Steps can be nested:
+```ts
+test('my test', async () => {
+  // step: Open home page
+  await page.goto('/');
+  if (noAuth) {
+    // step: Perform auth
+    await page.goto('/login');
+  }
+});
+```
 
 > [!IMPORTANT]
 > Code **indentation** is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
