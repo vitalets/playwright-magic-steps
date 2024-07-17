@@ -1,6 +1,6 @@
 {
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS='--import playwright-magic-steps/esm' playwright test"
+    "test": "npx cross-env NODE_OPTIONS='--import playwright-magic-steps/esm' playwright test"
   }
 }

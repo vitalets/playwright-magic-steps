@@ -45,9 +45,9 @@ export default defineConfig({
 ```
 
 ### ESM projects
-Run Playwright with the following `NODE_OPTIONS`:
+Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
 ```
-NODE_OPTIONS='--import playwright-magic-steps/esm' npx playwright test
+npx cross-env NODE_OPTIONS='--import playwright-magic-steps/esm' npx playwright test
 ```
 
 ## Usage
