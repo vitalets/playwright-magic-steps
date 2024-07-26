@@ -37,22 +37,22 @@
   },
   "devDependencies": {
     "@eslint/js": "9.7.0",
-    "@playwright/test": "1.45.1",
+    "@playwright/test": "1.45.3",
     "@types/node": "^18.15.0",
     "cross-env": "7.0.3",
     "eslint": "8.57.0",
     "eslint-plugin-playwright": "1.6.2",
     "globals": "15.8.0",
-    "knip": "5.26.0",
+    "knip": "5.27.0",
     "lint-staged": "15.2.7",
     "markdown-toc": "1.2.0",
-    "np": "10.0.6",
+    "np": "10.0.7",
     "prettier": "3.3.3",
     "publint": "0.2.8",
     "ts-node": "^10.9.2",
-    "typescript": "5.5.3",
-    "typescript-eslint": "7.16.1",
-    "vitest": "2.0.3"
+    "typescript": "5.5.4",
+    "typescript-eslint": "7.17.0",
+    "vitest": "2.0.4"
   },
   "repository": {
     "type": "git",
