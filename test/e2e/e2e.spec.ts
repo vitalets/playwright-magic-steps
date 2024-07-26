@@ -11,6 +11,11 @@ test('cjs (import in config)', async () => {
   expectSteps(stdout);
 });
 
+test('cjs-ts (import in config)', async () => {
+  const { stdout } = await runTests('cjs-ts');
+  expectSteps(stdout);
+});
+
 test('esm (--import option)', async () => {
   const { stdout } = await runTests('esm');
   expectSteps(stdout);
