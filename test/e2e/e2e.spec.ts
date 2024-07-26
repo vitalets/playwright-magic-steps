@@ -16,6 +16,11 @@ test('esm (--import option)', async () => {
   expectSteps(stdout);
 });
 
+test('esm-ts (--import option)', async () => {
+  const { stdout } = await runTests('esm-ts');
+  expectSteps(stdout);
+});
+
 function expectSteps(stdout: string) {
   expect(stdout).toContain('Open home page');
   expect(stdout).toContain("Click 'Get started' link");
