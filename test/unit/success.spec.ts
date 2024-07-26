@@ -11,9 +11,9 @@ test('close step by another step', () => {
       '',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload(); });',
-      '  await test.step(`step 2`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '  await page.reload(); });',
       '',
     ],
@@ -22,9 +22,12 @@ test('close step by another step', () => {
 
 test('close step by comment', () => {
   expectSteps(
-    ['  // step: step 1', '  await page.reload();', '  // stepend'],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  // step: step 1', 
+      '  await page.reload();', 
+      '  // stepend'
+    ], [
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  });',
     ],
@@ -39,7 +42,7 @@ test('close step by indent (append)', () => {
       '}'
     ], [
       'function foo() {',
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload(); });',
       '}',
     ],
@@ -55,7 +58,7 @@ test('close step by indent (prepend)', () => {
       '',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  }); // await page.goto();',
       '',
@@ -72,7 +75,7 @@ test('close step by indent with "//"', () => {
       '',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  await page.locator("xpath=//button").click(); });',
       '',
@@ -92,10 +95,10 @@ test('close several steps by indent (different lines)', () => {
       '',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  if (noAuth) {',
-      '    await test.step(`step 2`, async () => {',
+      '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.reload(); });',
       '  } });',
       '',
@@ -114,10 +117,10 @@ test('close several steps by indent (same line)', () => {
       '',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  if (noAuth) ',
-      '    await test.step(`step 2`, async () => {',
+      '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.close(); }); });',
       '',
     ],
@@ -134,10 +137,10 @@ test('close several steps by file end', () => {
       '    await page.close();',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  if (noAuth) ',
-      '    await test.step(`step 2`, async () => {',
+      '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.close(); }); });',
     ],
   );
@@ -154,10 +157,10 @@ test('close several steps by indent + comment', () => {
       '  // endstep',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  if (noAuth)',
-      '    await test.step(`step 2`, async () => {',
+      '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.reload(); });',
       '  });',
     ],
@@ -175,12 +178,12 @@ test('close several steps by another step', () => {
       '  // step: step 3',
     ],
     [
-      '  await test.step(`step 1`, async () => {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  if (noAuth)',
-      '    await test.step(`step 2`, async () => {',
+      '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.reload(); }); });',
-      '  await test.step(`step 3`, async () => { });',
+      '  await (await import("@playwright/test")).test.step(`step 3`, async () => { });',
     ],
   );
 });

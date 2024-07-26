@@ -20,4 +20,5 @@ function expectSteps(stdout: string) {
   expect(stdout).toContain('Open home page');
   expect(stdout).toContain("Click 'Get started' link");
   expect(stdout).toContain('Check page title');
+  expect(stdout).toContain('helper step');
 }

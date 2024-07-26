@@ -26,7 +26,7 @@ export class StepsRenderer {
   private renderStepStart({ start, indent, title }: Step) {
     title = title.replace(/`/g, '\\`');
     this.lines[start] =
-      `${' '.repeat(indent)}await test.step(\`${title}\`, async () => {`;
+      `${' '.repeat(indent)}await (await import("@playwright/test")).test.step(\`${title}\`, async () => {`;
   }
 
   private renderStepEnd({ end, indent, endByComment }: Step) {
