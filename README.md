@@ -147,7 +147,65 @@ test('my test', async () => {
 According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple. Wrapping code into `test.step()` adds extra visual complexity and nesting. Creating steps by comments makes test code clean and readable.
 
 ## Caveats
-This library performs string replacements in your code and can potentially break it. In that case you can disable magic steps -> your code will work as all instructions are JavaScript comments. Feel free to report any problems in [issues](https://github.com/vitalets/playwright-magic-steps/issues).
+This library performs string replacements in your code and can potentially break it. This is a price we pay for convenience.
+
+If something gets broken, you can always opt-out magic steps. Your tests will run, because all instructions are plain JavaScript comments. Feel free to report any problems in [issues](https://github.com/vitalets/playwright-magic-steps/issues) - it will help to make library better!
+
+Example of broken code:
+```ts
+test('Check home page', async ({ page }) => {
+  // step: Open home page
+  await page.goto('https://playwright.dev');
+  const link = page.getByRole('link', { name: 'Get started' });
+
+  // step: Click link
+  await link.click();
+});
+```
+
+Error:
+```
+ReferenceError: link is not defined
+```
+There is an error, because in the transformed code `link` variable is wrapped into the scope of the first step and not accessible in the second step:
+```ts
+test('Check home page', async ({ page }) => {
+  await test.step('Open home page', async () => {
+    await page.goto('https://playwright.dev');
+    const link = page.getByRole('link', { name: 'Get started' });
+  });
+
+  await test.step('Click link', async () => {
+    await link.click();
+  }); 
+});
+```
+
+How to fix:
+
+* Move `link` locator into the second step:
+  ```ts
+  test('Check home page', async ({ page }) => {
+    // step: Open home page
+    await page.goto('https://playwright.dev');
+
+    // step: Click link
+    const link = page.getByRole('link', { name: 'Get started' });
+    await link.click();
+  });
+  ```
+
+* Close first step earlier:
+  ```ts
+  // step: Open home page
+  await page.goto('https://playwright.dev');
+  // stepend
+
+  const link = page.getByRole('link', { name: 'Get started' });
+
+  // step: Click link
+  await link.click();
+  ```
 
 ## License
 [MIT](https://github.com/vitalets/playwright-magic-steps/blob/main/LICENSE)
