@@ -183,7 +183,7 @@ test('Check home page', async ({ page }) => {
 
 How to fix:
 
-* Move `link` locator into the second step:
+* Move `link` variable to the second step:
   ```ts
   test('Check home page', async ({ page }) => {
     // step: Open home page
@@ -197,14 +197,16 @@ How to fix:
 
 * Close first step earlier:
   ```ts
-  // step: Open home page
-  await page.goto('https://playwright.dev');
-  // stepend
+  test('Check home page', async ({ page }) => {
+    // step: Open home page
+    await page.goto('https://playwright.dev');
+    // stepend
 
-  const link = page.getByRole('link', { name: 'Get started' });
+    const link = page.getByRole('link', { name: 'Get started' });
 
-  // step: Click link
-  await link.click();
+    // step: Click link
+    await link.click();
+  });  
   ```
 
 ## License
