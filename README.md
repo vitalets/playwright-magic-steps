@@ -7,6 +7,23 @@
 
 Auto-transform JavaScript comments into Playwright steps.
 
+<!-- toc -->
+
+- [Example](#example)
+- [Installation](#installation)
+- [Configuration](#configuration)
+  * [CommonJS](#commonjs)
+  * [ESM](#esm)
+- [Usage](#usage)
+  * [Step start](#step-start)
+  * [Step end](#step-end)
+  * [Nested steps](#nested-steps)
+- [Motivation](#motivation)
+- [Caveats](#caveats)
+- [License](#license)
+
+<!-- tocstop -->
+
 ## Example
 Test code:
 ```ts
@@ -46,8 +63,10 @@ npm install -D playwright-magic-steps
 ```
 
 ## Configuration
+Configuration depends on the module type of your project - CommonJS or ESM.
 
-### CommonJS projects
+### CommonJS
+For CommonJS projects there are 2 options:
 
 * **Option 1** - add the following code to the Playwright config:
   ```ts
@@ -64,7 +83,7 @@ npm install -D playwright-magic-steps
   npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
   ```
 
-### ESM projects
+### ESM
 Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
 ```
 npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
@@ -73,34 +92,42 @@ npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
 ## Usage
 You can define steps with special comments.
 
-1. **Step start** is defined by the comment: `// step: {title}`
-2. **Step end** is defined by one of the following rules:
-   * start of another step on the same indent:
-      ```ts
-      test('my test', async () => {
-        // step: Open home page
-        await page.goto('/');
-        // step: Click button
-      });
-      ```
+### Step start
+Step start is defined by the comment: 
+```js
+// step: {title}
+```
 
-   * explicit comment `// stepend` on the same indent:
-      ```ts
-      test('my test', async () => {
-        // step: Open home page
-        await page.goto('/');
-        // stepend
-      });
-      ```
+### Step end
+Step end is defined by the one of the following rules (indent matters):
 
-   * indent is lower than indent of step start:
-      ```ts
-      test('my test', async () => {
-        // step: Open home page
-        await page.goto('/');
-      });
-      ```
+* start of another step with the same indent:
+  ```ts
+  test('my test', async () => {
+    // step: Open home page
+    await page.goto('/');
+    // step: Click button
+  });
+  ```
 
+* explicit comment `// stepend` with the same indent:
+  ```ts
+  test('my test', async () => {
+    // step: Open home page
+    await page.goto('/');
+    // stepend
+  });
+  ```
+
+* line indent is lower than indent of step start:
+  ```ts
+  test('my test', async () => {
+    // step: Open home page
+    await page.goto('/');
+  });
+  ```
+
+### Nested steps
 Steps can be nested:
 ```ts
 test('my test', async () => {
