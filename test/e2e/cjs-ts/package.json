@@ -1,6 +1,6 @@
 {
   "type": "commonjs",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test"
   }
 }

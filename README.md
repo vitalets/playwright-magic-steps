@@ -11,7 +11,7 @@ Auto-transform JavaScript comments into Playwright steps.
 
 - [Example](#example)
 - [Installation](#installation)
-- [Configuration](#configuration)
+- [Activation](#activation)
   * [CommonJS](#commonjs)
   * [ESM](#esm)
 - [Usage](#usage)
@@ -20,6 +20,8 @@ Auto-transform JavaScript comments into Playwright steps.
   * [Nested steps](#nested-steps)
 - [Motivation](#motivation)
 - [Caveats](#caveats)
+- [Changelog](#changelog)
+  * [dev](#dev)
 - [License](#license)
 
 <!-- tocstop -->
@@ -62,13 +64,19 @@ Install from npm:
 npm install -D playwright-magic-steps
 ```
 
-## Configuration
-Configuration depends on the module type of your project - CommonJS or ESM.
+## Activation
+Activation method of magic steps depends on the module type of your project - CommonJS or ESM.
 
 ### CommonJS
-For CommonJS projects there are 2 options:
+Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
+```
+npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
+```
 
-* **Option 1** - add the following code to the Playwright config:
+<details>
+  <summary>[LEGACY WAY] use Playwright config</summary>
+  Does not work since Playwright 1.47.
+
   ```ts
   import 'playwright-magic-steps'; // <- enables magic steps
   import { defineConfig } from '@playwright/test';
@@ -77,11 +85,7 @@ For CommonJS projects there are 2 options:
     ...
   });
   ```
-
-* **Option 2** - run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
-  ```
-  npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
-  ```
+</details>
 
 ### ESM
 Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
@@ -208,6 +212,11 @@ How to fix:
     await link.click();
   });  
   ```
+
+## Changelog
+
+### dev
+* dropped support of magic steps activation via `playwright.config.js` as it does not work in Playwright 1.47
 
 ## License
 [MIT](https://github.com/vitalets/playwright-magic-steps/blob/main/LICENSE)

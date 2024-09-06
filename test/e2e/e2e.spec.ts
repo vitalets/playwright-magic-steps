@@ -1,27 +1,22 @@
 import { test, expect } from 'vitest';
 import { runTests } from './helpers';
 
-test('cjs (-r option)', async () => {
+test('cjs', async () => {
   const { stdout } = await runTests('cjs');
   expectSteps(stdout);
 });
 
-test('cjs (import in config)', async () => {
-  const { stdout } = await runTests('cjs', 'npm run test:import');
-  expectSteps(stdout);
-});
-
-test('cjs-ts (import in config)', async () => {
+test('cjs-ts', async () => {
   const { stdout } = await runTests('cjs-ts');
   expectSteps(stdout);
 });
 
-test('esm (--import option)', async () => {
+test('esm', async () => {
   const { stdout } = await runTests('esm');
   expectSteps(stdout);
 });
 
-test('esm-ts (--import option)', async () => {
+test('esm-ts', async () => {
   const { stdout } = await runTests('esm-ts');
   expectSteps(stdout);
 });

@@ -1,7 +1,6 @@
 {
   "type": "commonjs",
   "scripts": {
-    "test": "npx cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test",
-    "test:import": "playwright test -c playwright-import.config.js"
+    "test": "npx cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test"
   }
 }
