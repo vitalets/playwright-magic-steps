@@ -21,7 +21,7 @@ Auto-transform JavaScript comments into Playwright steps.
 - [Motivation](#motivation)
 - [Caveats](#caveats)
 - [Changelog](#changelog)
-  * [dev](#dev)
+  * [0.4.0](#040)
 - [License](#license)
 
 <!-- tocstop -->
@@ -215,7 +215,7 @@ How to fix:
 
 ## Changelog
 
-### dev
+### 0.4.0
 * dropped support of magic steps activation via `playwright.config.js` as it does not work in Playwright 1.47
 
 ## License
