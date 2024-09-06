@@ -19,7 +19,10 @@ export default [
     rules: {
       'no-console': 'error',
 
-      complexity: ['error', { max: 5 }],
+      // complexity was set to 7 after update to eslint 9 as they changed the algorithm
+      // could be resolved via custom rule visual-complexity
+      // see: https://github.com/eslint/eslint/issues/18432
+      complexity: ['error', { max: 7 }],
       'max-depth': ['error', { max: 2 }],
       'max-nested-callbacks': ['error', { max: 2 }],
       'max-params': ['error', { max: 3 }],

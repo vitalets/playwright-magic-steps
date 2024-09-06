@@ -1,6 +1,7 @@
 /**
  * Hook Playwright internal modules.
  */
+/* eslint-disable @typescript-eslint/no-require-imports */
 import path from 'node:path';
 
 const pwRoot = resolvePackageRoot('playwright');
