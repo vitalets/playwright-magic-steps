@@ -2,6 +2,7 @@ import globals from 'globals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import playwright from 'eslint-plugin-playwright';
+import visualComplexity from 'eslint-plugin-visual-complexity';
 
 export default [
   {
@@ -16,13 +17,15 @@ export default [
   },
   {
     files: ['**/*.{ts,js}'],
+    plugins: {
+      'visual-complexity': visualComplexity,
+    },
     rules: {
       'no-console': 'error',
 
-      // complexity was set to 7 after update to eslint 9 as they changed the algorithm
-      // could be resolved via custom rule visual-complexity
-      // see: https://github.com/eslint/eslint/issues/18432
-      complexity: ['error', { max: 7 }],
+      'visual-complexity/complexity': ['error', { max: 5 }],
+      complexity: 0,
+
       'max-depth': ['error', { max: 2 }],
       'max-nested-callbacks': ['error', { max: 2 }],
       'max-params': ['error', { max: 3 }],
