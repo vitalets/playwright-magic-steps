@@ -18,12 +18,12 @@ export default [
   {
     files: ['**/*.{ts,js}'],
     plugins: {
-      'visual-complexity': visualComplexity,
+      visual: visualComplexity,
     },
     rules: {
       'no-console': 'error',
 
-      'visual-complexity/complexity': ['error', { max: 5 }],
+      'visual/complexity': ['error', { max: 5 }],
       complexity: 0,
 
       'max-depth': ['error', { max: 2 }],
