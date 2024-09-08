@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/playwright-magic-steps)](https://www.npmjs.com/package/playwright-magic-steps)
 [![license](https://img.shields.io/npm/l/playwright-magic-steps)](https://github.com/vitalets/playwright-magic-steps/blob/main/LICENSE)
 
-Auto-transform JavaScript comments into Playwright steps.
+Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) steps.
 
 <!-- toc -->
 
@@ -65,10 +65,10 @@ npm install -D playwright-magic-steps
 ```
 
 ## Activation
-Activation method of magic steps depends on the module type of your project - CommonJS or ESM.
+To enable magic steps transformation, you'll need to run Playwright with a pre-required module. You can include this module using the `NODE_OPTIONS` environment variable. The exact value will depend on whether your project uses CommonJS or ESM.
 
 ### CommonJS
-Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
+Run Playwright with the following `-r` flag in `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
 ```
 npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
 ```
@@ -88,7 +88,7 @@ npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
 </details>
 
 ### ESM
-Run Playwright with the following `NODE_OPTIONS` (install [cross-env](https://www.npmjs.com/package/cross-env) if needed):
+Run Playwright with the following `--import` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
 ```
