@@ -153,7 +153,7 @@ According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-be
 ## Caveats
 This library performs string replacements in your code and can potentially break it. This is a price we pay for convenience.
 
-If something gets broken, you can always opt-out magic steps. Your tests will run, because all instructions are plain JavaScript comments. Feel free to report any problems in [issues](https://github.com/vitalets/playwright-magic-steps/issues) - it will help to make library better!
+If something gets broken, you can always opt-out magic steps. Your tests will run, because all instructions are plain JavaScript comments. Feel free to report any problems in [issues](https://github.com/vitalets/playwright-magic-steps/issues).
 
 Example of broken code:
 ```ts
@@ -187,7 +187,7 @@ test('Check home page', async ({ page }) => {
 
 How to fix:
 
-* Move `link` variable to the second step:
+* Move `link` variable to the second step (that is more logical):
   ```ts
   test('Check home page', async ({ page }) => {
     // step: Open home page
@@ -199,7 +199,7 @@ How to fix:
   });
   ```
 
-* Close first step earlier:
+* Close first step earlier (if link variable is shared between several steps):
   ```ts
   test('Check home page', async ({ page }) => {
     // step: Open home page
