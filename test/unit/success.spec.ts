@@ -187,3 +187,20 @@ test('close several steps by another step', () => {
     ],
   );
 });
+
+test('variable in step', () => {
+  expectSteps(
+    [
+      '  const for = 42;',  
+      '  // step: step ${foo}',
+      '  await page.reload();',
+      '',
+    ],
+    [
+      '  const for = 42;',
+      '  await (await import("@playwright/test")).test.step(`step ${foo}`, async () => {',
+      '  await page.reload(); });',
+      '',
+    ],
+  );
+});

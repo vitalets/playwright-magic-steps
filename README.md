@@ -18,6 +18,7 @@ Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) st
   * [Step start](#step-start)
   * [Step end](#step-end)
   * [Nested steps](#nested-steps)
+  * [Variables](#variables)
 - [Motivation](#motivation)
 - [Caveats](#caveats)
 - [Changelog](#changelog)
@@ -146,6 +147,24 @@ test('my test', async () => {
 
 > [!IMPORTANT]
 > Code **indentation** is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
+
+### Variables
+You can use variables in step text like in template literals:
+
+```js
+const searchTerm = 'foo';
+// step: Enter search term ${searchTerm}
+await page.getByRole('search').fill(searchTerm);
+```
+
+Be careful with variables in comments, as it can be not obvious for other team members.
+Alternatively, you can always use regular `test.step()` for such cases:
+```js
+const searchTerm = 'foo';
+await test.step(`Enter search term ${searchTerm}`, async () => {
+  await page.getByRole('search').fill(searchTerm);
+});  
+```
 
 ## Motivation
 According to [Golden Rule](https://github.com/goldbergyoni/javascript-testing-best-practices?tab=readme-ov-file#section-0%EF%B8%8F⃣-the-golden-rule) of testing, I try to keep my Playwright tests flat and simple. Wrapping code into `test.step()` adds extra visual complexity and nesting. Creating steps by comments makes test code more readable.
