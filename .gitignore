@@ -11,4 +11,3 @@ npm-debug.log
 test-results
 playwright-report
 /todo.txt
-.network-cache
