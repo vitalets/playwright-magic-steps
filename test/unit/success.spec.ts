@@ -8,14 +8,14 @@ test('close step by another step', () => {
       '  await page.reload();',
       '  // step: step 2',
       '  await page.reload();',
-      '',
+      '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload(); });',
       '  await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '  await page.reload(); });',
-      '',
+      '}',
     ],
   );
 });
@@ -55,13 +55,13 @@ test('close step by indent (prepend)', () => {
       '  // step: step 1',
       '  await page.reload();',
       '  // await page.goto();',
-      '',
+      '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  }); // await page.goto();',
-      '',
+      '}',
     ],
   );
 });
@@ -72,13 +72,13 @@ test('close step by indent with "//"', () => {
       '  // step: step 1',
       '  await page.reload();',
       '  await page.locator("xpath=//button").click();',
-      '',
+      '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
       '  await page.locator("xpath=//button").click(); });',
-      '',
+      '}',
     ],
   );
 });
@@ -92,7 +92,7 @@ test('close several steps by indent (different lines)', () => {
       '    // step: step 2',
       '    await page.reload();',
       '  }',
-      '',
+      '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
@@ -101,7 +101,7 @@ test('close several steps by indent (different lines)', () => {
       '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.reload(); });',
       '  } });',
-      '',
+      '}',
     ],
   );
 });
@@ -114,7 +114,7 @@ test('close several steps by indent (same line)', () => {
       '  if (noAuth) ',
       '    // step: step 2',
       '    await page.close();',
-      '',
+      '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
@@ -122,7 +122,7 @@ test('close several steps by indent (same line)', () => {
       '  if (noAuth) ',
       '    await (await import("@playwright/test")).test.step(`step 2`, async () => {',
       '    await page.close(); }); });',
-      '',
+      '}',
     ],
   );
 });
@@ -188,19 +188,40 @@ test('close several steps by another step', () => {
   );
 });
 
+test('do not close step by blank line', () => {
+  expectSteps([
+      'function foo() {', 
+      '  // step: step 1', 
+      '  await page.reload();', 
+      '',
+      ' ',
+      '  await page.goto();', 
+      '}'
+    ], [
+      'function foo() {',
+      '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
+      '  await page.reload();',
+      '',
+      ' ',
+      '  await page.goto(); });',
+      '}',
+    ],
+  );
+});
+
 test('variable in step', () => {
   expectSteps(
     [
       '  const for = 42;',  
       '  // step: step ${foo}',
       '  await page.reload();',
-      '',
+      '}',
     ],
     [
       '  const for = 42;',
       '  await (await import("@playwright/test")).test.step(`step ${foo}`, async () => {',
       '  await page.reload(); });',
-      '',
+      '}',
     ],
   );
 });

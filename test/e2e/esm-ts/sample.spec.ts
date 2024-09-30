@@ -4,6 +4,7 @@ import { step, helper } from './step-helper.js';
 test('Check home page', async ({}) => {
   // step: Open home page
   await step();
+
   await helper();
   // step: Click 'Get started' link
   await step();

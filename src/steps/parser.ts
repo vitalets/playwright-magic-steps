@@ -10,6 +10,7 @@ export type ParsedLine = {
   isCommented?: boolean;
   isStepStartComment?: boolean;
   isStepEndComment?: boolean;
+  isBlank?: boolean;
 };
 
 export function parseLine(rawLine: string, index: number): ParsedLine {
@@ -21,6 +22,7 @@ export function parseLine(rawLine: string, index: number): ParsedLine {
     stepTitle,
     isStepStartComment: Boolean(stepTitle),
     isStepEndComment: config.stepCloser.test(line),
+    isBlank: !line,
   };
 }
 

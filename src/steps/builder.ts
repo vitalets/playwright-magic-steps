@@ -32,6 +32,11 @@ export class StepsBuilder {
 
   private processLine(rawLine: string, index: number) {
     const line = parseLine(rawLine, index);
+
+    // Don't close steps on blank lines inside step
+    // See: https://github.com/vitalets/playwright-magic-steps/issues/3
+    if (line.isBlank) return;
+
     this.closeStepsByIndent(line);
 
     if (line.isStepEndComment) {
@@ -52,12 +57,8 @@ export class StepsBuilder {
   }
 
   private closeStepsByFileEnd() {
-    const fakeLine: ParsedLine = {
-      index: this.rawLines.length,
-      indent: 0,
-      stepTitle: '',
-    };
-    this.closeStepsByIndent(fakeLine);
+    const lineIndex = this.rawLines.length;
+    this.openSteps.forEach((step) => (step.end = lineIndex - 1));
   }
 
   private closeStepByEndComment(line: ParsedLine) {
