@@ -6,15 +6,17 @@ test('close step by another step', () => {
     [
       '  // step: step 1',
       '  await page.reload();',
+      '',
       '  // step: step 2',
-      '  await page.reload();',
+      '  await page.goto();',
       '}',
     ],
     [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
-      '  await page.reload(); });',
+      '  await page.reload();',
+      ' });',
       '  await (await import("@playwright/test")).test.step(`step 2`, async () => {',
-      '  await page.reload(); });',
+      '  await page.goto(); });',
       '}',
     ],
   );
@@ -24,11 +26,15 @@ test('close step by comment', () => {
   expectSteps(
     [
       '  // step: step 1', 
-      '  await page.reload();', 
+      '  await page.reload();',
+      '',
+      '  await page.goto();',
       '  // stepend'
     ], [
       '  await (await import("@playwright/test")).test.step(`step 1`, async () => {',
       '  await page.reload();',
+      '',
+      '  await page.goto();',
       '  });',
     ],
   );
