@@ -234,10 +234,8 @@ How to fix:
 
 ## Changelog
 
-### 0.5.0
-* allow blank lines inside steps ([#3](https://github.com/vitalets/playwright-magic-steps/issues/3))
-
 ### 0.4.0
+* allow blank lines inside steps ([#3](https://github.com/vitalets/playwright-magic-steps/issues/3))
 * dropped support of magic steps activation via `playwright.config.js` as it does not work in Playwright 1.47
 
 ## License
