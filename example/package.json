@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test"
+  }
+}
