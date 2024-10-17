@@ -10,4 +10,6 @@ npm-debug.log
 /dist
 test-results
 playwright-report
+allure-report
+allure-results
 /todo.txt
