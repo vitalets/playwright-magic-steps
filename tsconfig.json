@@ -6,8 +6,7 @@
     "useUnknownInCatchVariables": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "noEmit": true,
-    "esModuleInterop": true
+    "noEmit": true
   },
   "include": ["**/*.ts"]
 }
