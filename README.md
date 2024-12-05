@@ -10,6 +10,7 @@ Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) st
 <!-- toc -->
 
 - [Example](#example)
+  * [With AI](#with-ai)
 - [Installation](#installation)
 - [Activation](#activation)
   * [CommonJS](#commonjs)
@@ -58,6 +59,25 @@ test('Check home page', async ({ page }) => {
   });
 });
 ```
+
+### With AI
+You can utilize AI to generate tests with appropriate comments and get nice reports. Example prompt for ChatGPT:
+```
+Write playwright test in typescript:
+- open playwright homepage
+- navigate to get started section
+- check that page title contains Installation
+
+Add comment to each step in the format // step: {comment}
+```
+
+Generated test:
+
+<img width="60%" src="https://github.com/user-attachments/assets/dee422f4-fe70-4e4e-8672-53900a137258"/>
+
+Playwright report:
+
+<img width="60%" src="https://github.com/user-attachments/assets/ae579550-29ac-4076-b2ff-5926ac6e54e4"/>
 
 ## Installation
 Install from npm:
