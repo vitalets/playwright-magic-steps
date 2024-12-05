@@ -7,26 +7,24 @@
 
 Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) steps.
 
-<!-- toc -->
-
+<!-- doc-gen TOC maxDepth="3" -->
 - [Example](#example)
-  * [With AI](#with-ai)
+  - [With AI](#with-ai)
 - [Installation](#installation)
 - [Activation](#activation)
-  * [CommonJS](#commonjs)
-  * [ESM](#esm)
+  - [CommonJS](#commonjs)
+  - [ESM](#esm)
 - [Usage](#usage)
-  * [Step start](#step-start)
-  * [Step end](#step-end)
-  * [Nested steps](#nested-steps)
-  * [Variables](#variables)
+  - [Step start](#step-start)
+  - [Step end](#step-end)
+  - [Nested steps](#nested-steps)
+  - [Variables](#variables)
 - [Motivation](#motivation)
 - [Caveats](#caveats)
 - [Changelog](#changelog)
-  * [0.4.0](#040)
+  - [0.4.0](#040)
 - [License](#license)
-
-<!-- tocstop -->
+<!-- end-doc-gen -->
 
 ## Example
 Test code:
