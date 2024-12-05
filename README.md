@@ -73,11 +73,11 @@ Add comment to each step in the format // step: {comment}
 
 Generated test:
 
-<img width="60%" src="https://github.com/user-attachments/assets/dee422f4-fe70-4e4e-8672-53900a137258"/>
+<img src="https://github.com/user-attachments/assets/dee422f4-fe70-4e4e-8672-53900a137258"/>
 
 Playwright report:
 
-<img width="60%" src="https://github.com/user-attachments/assets/ae579550-29ac-4076-b2ff-5926ac6e54e4"/>
+<img src="https://github.com/user-attachments/assets/3e019cf1-2e71-4dc5-9cd0-e8a94b755b8c"/>
 
 ## Installation
 Install from npm:
