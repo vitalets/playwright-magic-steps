@@ -41,9 +41,9 @@ test('Check home page', async ({ page }) => {
 });
 ```
 
-Report:
+Playwright report:
 
-![image](https://github.com/user-attachments/assets/70c38ae0-e451-468f-8678-71cc57a50ec1)
+![image](https://github.com/user-attachments/assets/3e11f029-a456-4009-ba75-2357c5f74b63)
 
 Test code actually executed:
 ```ts
