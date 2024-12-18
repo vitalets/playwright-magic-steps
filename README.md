@@ -108,7 +108,7 @@ Step start is defined by the comment:
 ```
 
 ### Step end
-Step end is defined by the one of the following rules (indent matters):
+Step end is defined by one of the following rules (indent matters):
 
 * start of another step with the same indent:
   ```ts
