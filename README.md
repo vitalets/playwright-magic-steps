@@ -59,7 +59,7 @@ test('Check home page', async ({ page }) => {
 ```
 
 ### With AI
-You can utilize AI to generate tests with appropriate comments and get nice reports. Example prompt for ChatGPT:
+You can utilize AI to generate tests with appropriate comments and get nice reports. Example prompt for [ChatGPT](https://chatgpt.com/):
 ```
 Write playwright test in typescript:
 - open playwright homepage
