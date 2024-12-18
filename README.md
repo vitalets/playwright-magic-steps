@@ -84,27 +84,13 @@ npm install -D playwright-magic-steps
 ```
 
 ## Activation
-To enable magic steps transformation, you'll need to run Playwright with a pre-required module. You can include this module using the `NODE_OPTIONS` environment variable. The exact value will depend on whether your project uses CommonJS or ESM.
+To enable magic steps transformation, you'll need to run Playwright with a pre-required module. You can include this module using the `NODE_OPTIONS` environment variable. The exact value will depend on whether your project uses CommonJS or ESM:
 
 ### CommonJS
 Run Playwright with the following `-r` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
 ```
-
-<details>
-  <summary>[LEGACY WAY] use Playwright config</summary>
-  Does not work since Playwright 1.47.
-
-  ```ts
-  import 'playwright-magic-steps'; // <- enables magic steps
-  import { defineConfig } from '@playwright/test';
-
-  export default defineConfig({
-    ...
-  });
-  ```
-</details>
 
 ### ESM
 Run Playwright with the following `--import` flag in `NODE_OPTIONS`:
