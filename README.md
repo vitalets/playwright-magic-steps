@@ -166,6 +166,19 @@ test('my test', async () => {
 > [!IMPORTANT]
 > Code **indentation** is important! Consider using [Prettier](https://prettier.io/) or other auto-formatting tools.
 
+If you need the same level steps to be nested - use anonymous `{}` block:
+```ts
+test('my test', async () => {
+  // step: login
+  {
+    // step: Open home page
+    await page.goto('/');    
+    // step: Perform auth
+    await page.goto('/login');
+  }
+});
+```
+
 ### Variables
 You can use variables in step text like in template literals:
 
