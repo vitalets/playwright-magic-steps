@@ -33,7 +33,7 @@ export class StepsRenderer {
     if (endByComment) {
       this.lines[end] = `${' '.repeat(indent)}});`;
     } else {
-      const line = this.lines[end];
+      const line = this.lines[end]!;
       this.lines[end] = isCommented(line)
         ? `${' '.repeat(indent)}}); ${line.trim()}`
         : `${line} });`;

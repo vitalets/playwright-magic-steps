@@ -65,14 +65,15 @@ export class StepsBuilder {
     const stepsToClose = this.openSteps.filter(
       (step) => step.indent === line.indent,
     );
-    if (stepsToClose.length === 0) {
-      this.throwError(line, `Step end without step start`);
-    }
     if (stepsToClose.length > 1) {
       this.throwError(line, `Several open steps with same indent.`);
     }
-    stepsToClose[0].end = line.index;
-    stepsToClose[0].endByComment = true;
+    const stepToClose = stepsToClose[0];
+    if (!stepToClose) {
+      this.throwError(line, `Step end without step start`);
+    }
+    stepToClose.end = line.index;
+    stepToClose.endByComment = true;
   }
 
   private closeStepByStartComment(line: ParsedLine) {
@@ -82,8 +83,9 @@ export class StepsBuilder {
     if (stepsToClose.length > 1) {
       this.throwError(line, `Several open steps with same indent.`);
     }
-    if (stepsToClose.length === 1) {
-      stepsToClose[0].end = line.index - 1;
+    const stepToClose = stepsToClose[0];
+    if (stepsToClose.length === 1 && stepToClose) {
+      stepToClose.end = line.index - 1;
     }
   }
 
