@@ -91,11 +91,23 @@ Run Playwright with the following `-r` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
 ```
+To enable magic steps in Playwright VS Code extension, add the following lines to `.vscode/settings.json`:
+```json
+"playwright.env": {
+  "NODE_OPTIONS": "-r playwright-magic-steps"
+},
+```
 
 ### ESM
 Run Playwright with the following `--import` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
+```
+To enable magic steps in Playwright VS Code extension, add the following lines to `.vscode/settings.json`:
+```json
+"playwright.env": {
+  "NODE_OPTIONS": "--import playwright-magic-steps/esm"
+},
 ```
 
 ## Usage
