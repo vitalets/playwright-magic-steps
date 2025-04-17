@@ -2,11 +2,15 @@
   "name": "playwright-magic-steps",
   "description": "Auto-transform JavaScript comments into Playwright steps",
   "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vitalets/playwright-magic-steps.git"
+  },
   "type": "commonjs",
   "main": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./esm": "./dist/pwHooks/esm/registerLoader.js"
+    "./package.json": "./package.json"
   },
   "engines": {
     "node": ">=18"
@@ -26,18 +30,22 @@
     "test": "vitest run test/unit",
     "e2e": "npm run build && vitest run test/e2e/e2e.spec.ts --sequence.concurrent --test-timeout=10000",
     "test:all": "npm test && npm run e2e",
-    "example": "npm run build && cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test -c example",
     "toc": "md-magic --files README.md",
     "pw": "npm i --no-save @playwright/test@$PW",
+    "pw:install": "PLAYWRIGHT_SKIP_BROWSER_GC=1 npx playwright install chromium",
+    "pw:cache": "npx playwright clear-cache",
     "build": "bash scripts/build.sh",
     "release": "bash scripts/release.sh"
+  },
+  "dependencies": {
+    "pirates": "^4.0.7"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.41"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.51.1",
     "@types/node": "^18.15.0",
     "cross-env": "7.0.3",
     "eslint": "^9.19.0",
@@ -50,14 +58,9 @@
     "np": "^10.2.0",
     "prettier": "3.4.2",
     "publint": "^0.3.2",
-    "ts-node": "^10.9.2",
     "typescript": "5.5.4",
     "typescript-eslint": "^8.23.0",
     "vitest": "^3.0.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/vitalets/playwright-magic-steps.git"
   },
   "keywords": [
     "playwright",
