@@ -7,7 +7,9 @@
 import { addHook } from 'pirates';
 
 const pwTransformPath = require.resolve('playwright/lib/transform/transform');
-const stepsModulePath = require.resolve('./steps');
+// Convert to POSIX path with forward slashes
+// to avoid issues on Windows with requiring this string.
+const stepsModulePath = require.resolve('./steps').replace(/\\/g, '/');
 
 // eslint-disable-next-line no-console
 console.log('stepsModulePath', stepsModulePath);
