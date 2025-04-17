@@ -4,12 +4,13 @@
  * In ESM mode, Playwright's esmLoader also requires this transform module beforehand.
  */
 
-import path from 'node:path';
 import { addHook } from 'pirates';
 
 const pwTransformPath = require.resolve('playwright/lib/transform/transform');
-// convert to posix path with forward slashes - to avoid issues with Windows
-const stepsModulePath = path.posix.resolve(require.resolve('./steps'));
+const stepsModulePath = require.resolve('./steps');
+
+// eslint-disable-next-line no-console
+console.log('stepsModulePath', stepsModulePath);
 
 addHook(
   (code) => {
