@@ -1,8 +1,5 @@
 {
   "scripts": {
     "test": "cross-env NODE_OPTIONS=\"-r playwright-magic-steps\" playwright test"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.51.1"
   }
 }
