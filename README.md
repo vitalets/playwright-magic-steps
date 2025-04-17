@@ -12,8 +12,7 @@ Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) st
   - [With AI](#with-ai)
 - [Installation](#installation)
 - [Activation](#activation)
-  - [CommonJS](#commonjs)
-  - [ESM](#esm)
+- [Activation for v0.x (deprecated)](#activation-for-v0x-deprecated)
 - [Usage](#usage)
   - [Step start](#step-start)
   - [Step end](#step-end)
@@ -22,6 +21,7 @@ Auto-transform JavaScript comments into [Playwright](https://playwright.dev/) st
 - [Motivation](#motivation)
 - [Caveats](#caveats)
 - [Changelog](#changelog)
+  - [1.0.0](#100)
   - [0.4.0](#040)
 - [License](#license)
 <!-- end-doc-gen -->
@@ -84,9 +84,27 @@ npm install -D playwright-magic-steps
 ```
 
 ## Activation
+To activate magic steps in your project, you should run Playwright with pre-required module, provided via `-r` flag in `NODE_OPTIONS`:
+
+```
+npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
+```
+
+To enable magic steps in Playwright VS Code extension, add the following lines to `.vscode/settings.json`:
+```json
+"playwright.env": {
+  "NODE_OPTIONS": "-r playwright-magic-steps"
+},
+```
+
+## Activation for v0.x (deprecated)
+
+<details>
+<summary>Click to expand</summary>
+
 To enable magic steps transformation, you'll need to run Playwright with a pre-required module. You can include this module using the `NODE_OPTIONS` environment variable. The exact value will depend on whether your project uses CommonJS or ESM:
 
-### CommonJS
+#### CommonJS
 Run Playwright with the following `-r` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
@@ -98,7 +116,7 @@ To enable magic steps in Playwright VS Code extension, add the following lines t
 },
 ```
 
-### ESM
+#### ESM
 Run Playwright with the following `--import` flag in `NODE_OPTIONS`:
 ```
 npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
@@ -109,6 +127,7 @@ To enable magic steps in Playwright VS Code extension, add the following lines t
   "NODE_OPTIONS": "--import playwright-magic-steps/esm"
 },
 ```
+</details>
 
 ## Usage
 You can define steps with special comments.
@@ -262,6 +281,15 @@ How to fix:
   ```
 
 ## Changelog
+
+### 1.0.0
+* [breaking] a new way to inject transformer code into Playwright, same approach for both cjs and esm. How to migrate:
+  - if you use magic steps in **CJS** project, no changes
+  - if you use magic steps in **ESM** project, replace the following:
+    ```diff
+    -npx cross-env NODE_OPTIONS="--import playwright-magic-steps/esm" playwright test
+    +npx cross-env NODE_OPTIONS="-r playwright-magic-steps" playwright test
+    ```
 
 ### 0.4.0
 * allow blank lines inside steps ([#3](https://github.com/vitalets/playwright-magic-steps/issues/3))
