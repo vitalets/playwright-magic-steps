@@ -11,9 +11,6 @@ const pwTransformPath = require.resolve('playwright/lib/transform/transform');
 // to avoid issues on Windows with requiring this string.
 const stepsModulePath = require.resolve('./steps').replace(/\\/g, '/');
 
-// eslint-disable-next-line no-console
-console.log('stepsModulePath', stepsModulePath);
-
 addHook(
   (code) => {
     const inject = `originalCode = require("${stepsModulePath}").transformMagicSteps(originalCode, filename);`;
