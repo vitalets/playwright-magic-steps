@@ -2,6 +2,7 @@ name: example
 
 on:
   push:
+    branches: ['**']
   pull_request:
     branches: [main, beta]
   schedule:
