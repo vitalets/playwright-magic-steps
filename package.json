@@ -24,7 +24,6 @@
     "prepare": "git config core.hooksPath scripts/git-hooks",
     "lint": "eslint .",
     "tsc": "tsc",
-    "knip": "knip -c knip.config.ts",
     "prettier": "prettier --check --ignore-unknown .",
     "prettier:w": "prettier --write --ignore-unknown .",
     "test": "vitest run test/unit",
@@ -36,6 +35,7 @@
     "pw": "npm i --no-save @playwright/test@$PW",
     "pw:install": "PLAYWRIGHT_SKIP_BROWSER_GC=1 npx playwright install chromium",
     "pw:cache": "npx playwright clear-cache",
+    "deps": "npx npm-check-updates -i --format group,dep,repo --cooldown 7",
     "build": "bash scripts/build.sh",
     "release": "bash scripts/release.sh"
   },
