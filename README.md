@@ -282,6 +282,9 @@ How to fix:
 
 ## Changelog
 
+### 1.0.1
+* Update dependencies.
+
 ### 1.0.0
 * [breaking] a new way to inject transformer code into Playwright, same approach for both cjs and esm. How to migrate:
   - if you use magic steps in **CJS** project, no changes
