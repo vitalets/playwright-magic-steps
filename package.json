@@ -70,6 +70,15 @@
     "testing",
     "e2e"
   ],
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "printWidth": 80,
+    "semi": true,
+    "trailingComma": "all",
+    "bracketSpacing": true
+  },
   "funding": "https://github.com/sponsors/vitalets",
   "license": "MIT"
 }
