@@ -2,3 +2,4 @@ dist
 playwright-report
 **/*.md
 test/unit/*.spec.ts
+package-lock.json
