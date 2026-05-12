@@ -3,6 +3,9 @@ name: test-win
 on:
   push:
     branches: ['**']
+    paths-ignore:
+      - 'example/**'
+      - '**/*.md'
   pull_request:
     branches: [main, beta]
 

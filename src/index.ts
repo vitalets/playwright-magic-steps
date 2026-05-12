@@ -1,8 +1,8 @@
 /**
  * Intercept requiring of Playwright's transform module to inject magic-steps transform.
  * It works in both CJS and ESM mode.
- * In PW < 1.60, Playwright's esmLoader requires the same transform module, so one hook covers both modes.
- * In PW >= 1.60, esmLoader is a self-contained worker bundle, so we register a chained ESM hook.
+ * In older PW versions, esmLoader requires the same transform module, so one hook covers both modes.
+ * In newer PW versions, esmLoader runs in a separate worker, so we chain a loader before it.
  */
 
 import { addHook } from 'pirates';
@@ -23,15 +23,17 @@ const transformHookSignature =
 const inject = `originalCode = require("${stepsModulePath}").transformMagicSteps(originalCode, filename);`;
 const patchedSignature = `${transformHookSignature} ${inject}`;
 
-// For CJS mode: patch transformHook in Playwright's transform module via pirates.
-addHook((code) => code.replace(transformHookSignature, patchedSignature), {
-  ignoreNodeModules: false,
-  matcher: (filename) => filename === pwTransformPath,
-});
+addHook(
+  (code) => {
+    return code.replace(transformHookSignature, patchedSignature);
+  },
+  {
+    ignoreNodeModules: false,
+    matcher: (filename) => filename === pwTransformPath,
+  },
+);
 
-// For ESM mode in PW >= 1.60: register a chained ESM loader hook.
-// (In PW < 1.60, esmLoader.js requires the same transform module, so the pirates hook above covers ESM too.)
-if (playwrightVersion >= '1.60.0') {
+if (playwrightVersion >= '1.57.0') {
   setupEsmHook();
 }
 
@@ -49,30 +51,36 @@ function getPlaywrightVersion() {
 
 // Since PW 1.60, transformHook moved from lib/transform/transform to lib/common/index.js.
 function getPwTransformPath() {
-  return playwrightVersion >= '1.60.0'
+  return playwrightVersion >= '1.60'
     ? require.resolve(path.join(playwrightDir, 'lib/common/index.js'))
     : require.resolve('playwright/lib/transform/transform');
 }
 
-// In PW >= 1.60, esmLoader.js is a self-contained worker bundle with its own copy of transformHook.
-// module.register() loads it in a separate thread, so pirates hooks don't reach it.
-// Solution: monkey-patch Module.register so that when Playwright registers its esmLoader,
-// we immediately register our own ESM hook after it. LIFO ordering means our hook runs first,
-// calls nextLoad to get Playwright's babel-compiled output, then applies transformMagicSteps.
+// In newer PW versions, esmLoader.js is registered in a separate worker.
+// We register our loader right after Playwright's one so (LIFO) ours runs first,
+// then delegates to Playwright via nextLoad.
+// We do not replace Playwright's loader: it keeps all resolution/transform/cache logic.
 function setupEsmHook() {
   const esmHookUrl = pathToFileURL(require.resolve('./esmHook.mjs')).href;
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const nodeModule = require('node:module') as {
-    register: (...args: unknown[]) => void;
+    register: (
+      specifier: string | URL,
+      options?: Record<string, unknown>,
+    ) => void;
   };
   const originalRegister = nodeModule.register.bind(nodeModule);
-  let registered = false;
-  nodeModule.register = (...args: unknown[]) => {
-    originalRegister(...args);
-    // Detect Playwright registering its esmLoader and piggyback our hook right after.
-    if (!registered && String(args[0]).includes('esmLoader')) {
-      registered = true;
-      originalRegister(esmHookUrl, { data: { stepsModulePath } });
+
+  nodeModule.register = (specifier, options) => {
+    if (String(specifier).includes('/transform/esmLoader')) {
+      // Keep Playwright loader in the chain, then register ours after it.
+      originalRegister(specifier, options);
+      originalRegister(esmHookUrl, {
+        data: { stepsModulePath },
+      });
+      return;
     }
+
+    originalRegister(specifier, options);
   };
 }
