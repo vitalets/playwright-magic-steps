@@ -32,7 +32,7 @@
     "toc": "md-magic --files README.md",
     "example": "npm run build && cd example && npm test",
     "example:report": "cd example && npx playwright show-report",
-    "pw": "npm i --no-save @playwright/test@$PW",
+    "pw": "npm i --no-save --min-release-age=0 @playwright/test@$PW",
     "pw:install": "PLAYWRIGHT_SKIP_BROWSER_GC=1 npx playwright install chromium",
     "pw:cache": "npx playwright clear-cache",
     "deps": "npx npm-check-updates -i --format group,dep,repo --cooldown 5",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.57.0",
-    "@types/node": "^20.19.28",
+    "@types/node": "20.19.41",
     "cross-env": "10.1.0",
     "eslint": "^10.3.0",
     "eslint-plugin-playwright": "^2.10.2",

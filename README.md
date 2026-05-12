@@ -282,6 +282,9 @@ How to fix:
 
 ## Changelog
 
+### 1.1.0
+* Support Playwright 1.60+.
+
 ### 1.0.1
 * Update dependencies.
 
