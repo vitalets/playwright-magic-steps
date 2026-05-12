@@ -6,5 +6,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["**/*.ts", "playwright.config.ts"]
+  "include": ["**/*.ts"]
 }
