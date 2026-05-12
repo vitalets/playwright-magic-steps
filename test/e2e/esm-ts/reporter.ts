@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable no-console */
-import {
+import type {
   Reporter,
   TestStep,
   TestCase,
