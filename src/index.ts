@@ -12,6 +12,14 @@ import { pathToFileURL } from 'node:url';
 
 const playwrightDir = getPlaywrightDir();
 const playwrightVersion = getPlaywrightVersion();
+const MIN_PLAYWRIGHT_VERSION = '1.53.0';
+
+if (playwrightVersion < MIN_PLAYWRIGHT_VERSION) {
+  throw new Error(
+    `Supported Playwright versions are ${MIN_PLAYWRIGHT_VERSION} and newer. Detected version is ${playwrightVersion}.`,
+  );
+}
+
 const pwTransformPath = getPwTransformPath();
 
 // Convert to POSIX path with forward slashes
@@ -33,9 +41,7 @@ addHook(
   },
 );
 
-if (playwrightVersion >= '1.57.0') {
-  setupEsmHook();
-}
+setupEsmHook();
 
 function getPlaywrightDir() {
   return path.dirname(require.resolve('playwright/package.json'));

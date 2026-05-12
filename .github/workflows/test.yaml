@@ -1,5 +1,8 @@
 name: test
 
+env:
+  MIN_PLAYWRIGHT_VERSION: 1.53.0
+
 on:
   push:
     branches: ['**']
@@ -21,7 +24,7 @@ jobs:
         with:
           script: |
             if (context.eventName === 'schedule') return [ 'beta' ];
-            const minimalVersion = '1.44';
+            const minimalVersion = process.env.MIN_PLAYWRIGHT_VERSION;
             const { execSync } = require('node:child_process');
             const info = execSync('npm show --json @playwright/test').toString();
             const { versions } = JSON.parse(info);
